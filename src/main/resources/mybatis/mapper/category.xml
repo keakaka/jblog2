@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	<insert id="insertFirstCategory" parameterType="string">
+		<![CDATA[
+			insert into category values(null, '미분류', '카테고리를 지정하지 않은 경우' , now(), #{value })
+		]]>
+	</insert>
+	
+	<select id="getBlogContent" resultType="categoryvo" parameterType="string">
+		<![CDATA[
+			select no, name from category where id=#{value }
+		]]>
+	</select>
+	
+	<select id="getAdminCategory" resultType="categoryvo" parameterType="string">
+		<![CDATA[
+			select no, name, comment, id from category where id=#{value }
+		]]>
+	</select>
+	
+	<delete id="deleteCategory" parameterType="long">
+		<![CDATA[
+			delete from category where no = #{value }
+		]]>
+	</delete>
+	
+	<insert id="insertCategory" parameterType="categoryvo">
+		<![CDATA[
+			insert into category values(null, #{name }, #{comment }, now(), #{id })
+		]]>
+	</insert>
+	
+	<select id="getFirstCategory" resultType="long" parameterType="string">
+		<![CDATA[
+			select no from category where id = #{value } limit 1
+		]]>
+	</select>
+	
+</mapper>
